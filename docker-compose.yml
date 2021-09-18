@@ -1,4 +1,4 @@
-version: "2.3"
+version: "3"
 
 services:
     database:
@@ -24,6 +24,19 @@ services:
             PGADMIN_DEFAULT_PASSWORD: 1234
         ports:
             - "8889:80"
+        networks:
+            - internal_network
+
+    app:
+        container_name: NextJS
+        build:
+            context: ./app
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./app:/usr/src/app
+            - ./app/node_modules:/usr/src/app/node_modules
+            - ./app/.next:/usr/src/app/.next
         networks:
             - internal_network
 
