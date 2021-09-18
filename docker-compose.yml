@@ -1,0 +1,32 @@
+version: "2.3"
+
+services:
+    database:
+        container_name: PostgreSQL
+        image: postgres:12
+        mem_limit: 1536MB
+        mem_reservation: 1G
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: 1234
+        ports:
+            - "5442:5432"
+        networks:
+            - internal_network
+        volumes:
+            - ./data:/var/lib/postgresql/data
+
+    pgadmin4:
+        container_name: PgAdmin4
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: dev@jaroslawlesniak.pl
+            PGADMIN_DEFAULT_PASSWORD: 1234
+        ports:
+            - "8889:80"
+        networks:
+            - internal_network
+
+networks:
+    internal_network:
+        driver: bridge
