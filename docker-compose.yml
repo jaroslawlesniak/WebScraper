@@ -1,4 +1,4 @@
-version: "3"
+version: "3.6"
 
 services:
     database:
@@ -26,19 +26,25 @@ services:
             - "8889:80"
         networks:
             - internal_network
+        depends_on:
+            - database
 
     app:
         container_name: NextJS
+        restart: always
         build:
             context: ./app
         ports:
-            - "3000:3000"
+            - 3000:3000
+            - 49153:49153
         volumes:
             - ./app:/usr/src/app
-            - ./app/node_modules:/usr/src/app/node_modules
-            - ./app/.next:/usr/src/app/.next
+            - /usr/src/app/node_modules
+            - /usr/src/app/.next
         networks:
             - internal_network
+        depends_on:
+            - database
 
 networks:
     internal_network:
