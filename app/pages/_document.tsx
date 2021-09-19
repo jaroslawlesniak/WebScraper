@@ -9,13 +9,13 @@ class MyDocument extends Document {
     render() {
         return (
             <Html>
-                <head>
+                <Head>
                     <link rel="stylesheet" href="/css/uikit.css" />
-                    {/* <Head /> */}
-                </head>
+                </Head>
                 <body>
                     <Main />
                     <NextScript />
+                    <script src="/js/uikit.min.js"></script>
                 </body>
             </Html>
         );
